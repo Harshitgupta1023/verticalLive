@@ -46,7 +46,7 @@ exports.create = asyncHandler(async (req, res, next) => {
         res.status(200).json({
           uid: uid,
           email: email,
-          isAdmin:result.rows[0].uid === process.env.ADMIN_ID,
+          isAdmin:uid === process.env.ADMIN_ID,
 
         });
       }

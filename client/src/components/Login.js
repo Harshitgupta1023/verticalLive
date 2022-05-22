@@ -114,6 +114,7 @@ const Login = ({ open, handleClose, setUid, setIsAdmin }) => {
             required={true}
             InputLabelProps={{ style: { fontSize: 18, color: "black" } }}
             inputProps={{ style: { fontSize: 20 } }}
+          type="password"
           />
           <div className={classes.buttonContainer}>
             <button onClick={userLogin} className="button">
