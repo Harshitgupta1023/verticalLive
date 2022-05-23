@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "survey-core/modern.min.css";
 import { StylesManager, Model } from "survey-core";
 import { Survey } from "survey-react-ui";
+
 import axios from "axios";
 
 StylesManager.applyTheme("modern");
 
-const QuestionCard = ({ serverData, uid }) => {
+const QuestionCard = ({
+  serverData,
+  uid,
+  setMessage,
+  setAlertOpen,
+  setSeverity,
+}) => {
   const sendResult = async (sender) => {
     let results = sender.data;
     Object.keys(results).map((dat) => {
@@ -20,9 +27,13 @@ const QuestionCard = ({ serverData, uid }) => {
         uid: uid,
         result: results,
       });
-      console.log(res);
+      setMessage("Answer Submitted Successfully!! ");
+      setAlertOpen(true);
+      setSeverity("success");
     } catch (err) {
-      console.log(err);
+      setMessage(err.response.data.error);
+      setAlertOpen(true);
+      setSeverity("error");
     }
   };
   const data = {
@@ -68,7 +79,7 @@ const QuestionCard = ({ serverData, uid }) => {
   survey.onComplete.add(sendResult);
 
   return (
-    <div style={{marginBottom:"5rem"}}>
+    <div style={{ marginBottom: "5rem" }}>
       {serverData.length !== 0 ? <Survey model={survey} /> : null}
     </div>
   );

@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: "0.3rem",
     padding: "1rem",
     backgroundColor: color.primary,
-    justifyContent:"space-between"
+    justifyContent: "space-between",
   },
   logoContainer: {
     width: "5%",
@@ -22,18 +22,18 @@ const useStyles = makeStyles(() => ({
     textAlign: "center",
     fontSize: "3rem",
     alignSelf: "center",
-    color:"white",
-    marginLeft:"2rem"
+    color: "white",
+    marginLeft: "2rem",
   },
   linkContainer: {
     display: "flex",
     justifyContent: "space-around",
-    alignItems:"center",
-    marginRight:"5rem"
+    alignItems: "center",
+    marginRight: "5rem",
   },
 }));
 
-const Header = ({ setUid, uid }) => {
+const Header = ({ setUid, uid, setMessage, setAlertOpen, setSeverity }) => {
   const classes = useStyles();
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -58,11 +58,8 @@ const Header = ({ setUid, uid }) => {
         <p>Survey App</p>
       </div>
       <div className={classes.linkContainer}>
-      {isAdmin ? (
-          <p
-          className="styledButton"
-            onClick={handleNewQuestionOpen}
-          >
+        {isAdmin ? (
+          <p className="styledButton" onClick={handleNewQuestionOpen}>
             New Question
           </p>
         ) : null}
@@ -73,7 +70,6 @@ const Header = ({ setUid, uid }) => {
         >
           {uid === "" ? "Login" : "Logout"}
         </p>
-
       </div>
       {loginOpen ? (
         <Login
@@ -81,6 +77,9 @@ const Header = ({ setUid, uid }) => {
           handleClose={handleLoginClose}
           setUid={setUid}
           setIsAdmin={setIsAdmin}
+          setMessage={setMessage}
+          setAlertOpen={setAlertOpen}
+          setSeverity={setSeverity}
         />
       ) : null}
       {isAdmin && newQuestionOpen ? (
@@ -88,6 +87,9 @@ const Header = ({ setUid, uid }) => {
           open={newQuestionOpen}
           handleClose={handleNewQuestionClose}
           uid={uid}
+          setMessage={setMessage}
+          setAlertOpen={setAlertOpen}
+          setSeverity={setSeverity}
         />
       ) : null}
     </div>

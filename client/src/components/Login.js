@@ -30,10 +30,19 @@ const style = {
   p: 4,
 };
 
-const Login = ({ open, handleClose, setUid, setIsAdmin }) => {
+const Login = ({
+  open,
+  handleClose,
+  setUid,
+  setIsAdmin,
+  setMessage,
+  setAlertOpen,
+  setSeverity,
+}) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const userLogin = async () => {
     try {
       const res = await axios.post(
@@ -47,7 +56,9 @@ const Login = ({ open, handleClose, setUid, setIsAdmin }) => {
       handleClose();
       setIsAdmin(res.data.isAdmin);
     } catch (err) {
-      console.log(err);
+      setMessage(err.response.data.error);
+      setAlertOpen(true);
+      setSeverity("error");
     }
   };
 
@@ -63,8 +74,14 @@ const Login = ({ open, handleClose, setUid, setIsAdmin }) => {
       setUid(res.data.uid);
       handleClose();
       setIsAdmin(res.data.isAdmin);
+
+      setMessage("Welcome to Survey APP ");
+      setAlertOpen(true);
+      setSeverity("success");
     } catch (err) {
-      console.log(err);
+      setMessage(err.response.data.error);
+      setAlertOpen(true);
+      setSeverity("error");
     }
   };
 
@@ -112,7 +129,7 @@ const Login = ({ open, handleClose, setUid, setIsAdmin }) => {
             required={true}
             InputLabelProps={{ style: { fontSize: 18, color: "black" } }}
             inputProps={{ style: { fontSize: 20 } }}
-          type="password"
+            type="password"
           />
           <div className={classes.buttonContainer}>
             <button onClick={userLogin} className="button">

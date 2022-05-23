@@ -8,7 +8,7 @@ exports.create = async (req, res, next) => {
   const qid = makeID(8);
   const { category, answer, description, questionType, uid } = req.body;
   if (uid !== process.env.ADMIN_ID) {
-    res.status(400);
+    res.status(400).json({ error: "Access Unauthorized!!!" });
     throw new Error("Access Unauthorized!!!");
   }
   try {
@@ -17,14 +17,14 @@ exports.create = async (req, res, next) => {
       [qid, description, questionType, category, answer],
       (err, result) => {
         if (err) {
-          res.status(400);
+          res.status(400).json({ error: err.message });
           throw new Error(err);
         }
       }
     );
     res.status(200).send("Done");
   } catch (err) {
-    res.status(400);
+    res.status(400).json({ error: err.message });
     throw new Error(err);
   }
 };
@@ -40,14 +40,14 @@ exports.answer = async (req, res, next) => {
       "INSERT INTO answerData (UID,QID,answer) VALUES " + query.join(",") + ";",
       (err, result) => {
         if (err) {
-          res.status(400);
+          res.status(400).json({ error: err.message });
           throw new Error(err);
         }
-        res.status(200);
+        res.status(200).send("Done");
       }
     );
   } catch (err) {
-    res.status(400);
+    res.status(400).json({ error: err.message });
     throw new Error(err);
   }
 };

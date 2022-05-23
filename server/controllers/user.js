@@ -12,7 +12,7 @@ exports.create = asyncHandler(async (req, res, next) => {
   const uid = makeID(8);
   const { email, password } = req.body;
   if (!email || !password) {
-    res.status(400);
+    res.status(400).json({ error: "Please add all fields" });
     throw new Error("Please add all fields");
   }
   let userExist = false;
@@ -23,11 +23,11 @@ exports.create = asyncHandler(async (req, res, next) => {
     );
     if (result.rowCount !== 0) {
       userExist = true;
-      res.status(400);
+      res.status(400).json({ error: "User already exists!!" });
       throw new Error("User already exists!!");
     }
   } catch (err) {
-    res.status(400);
+    res.status(400).json({ error: err.message });
     throw new Error(err);
   }
 
@@ -40,14 +40,13 @@ exports.create = asyncHandler(async (req, res, next) => {
       [uid, email, hashedPassword],
       (err, result) => {
         if (err) {
-          res.status(400);
+          res.status(400).json({ error: err.message });
           throw new Error(err);
         }
         res.status(200).json({
           uid: uid,
           email: email,
-          isAdmin:uid === process.env.ADMIN_ID,
-
+          isAdmin: uid === process.env.ADMIN_ID,
         });
       }
     );
@@ -59,7 +58,9 @@ exports.login = asyncHandler(async (req, res, next) => {
 
   const { email, password } = req.body;
   if (!email || !password) {
-    res.status(400);
+    res.status(400).send({
+      error: "Please add all fields",
+    });
     throw new Error("Please add all fields");
   }
   pool.query(
@@ -67,12 +68,13 @@ exports.login = asyncHandler(async (req, res, next) => {
     [email],
     async (err, result) => {
       if (err) {
-        res.status(400);
-
+        res.status(400).json({ error: err.message });
         throw new Error(err);
       }
       if (result.rowCount === 0) {
-        res.status(400);
+        res.status(400).json({
+          error: "No user exists!!",
+        });
         throw new Error("No user exists!!");
       }
       const compareResult = await bcrypt.compare(
@@ -82,11 +84,11 @@ exports.login = asyncHandler(async (req, res, next) => {
       if (compareResult) {
         res.status(200).json({
           uid: result.rows[0].uid,
-          isAdmin:result.rows[0].uid === process.env.ADMIN_ID,
+          isAdmin: result.rows[0].uid === process.env.ADMIN_ID,
           email: result.rows[0].email,
         });
       } else {
-        res.status(400);
+        res.status(400).json({ error: "Password Incorrect!!"});
         throw new Error("Password Incorrect!!");
       }
     }

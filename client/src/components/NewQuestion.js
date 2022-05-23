@@ -37,10 +37,17 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
-  overflow:"auto"
+  overflow: "auto",
 };
 
-const NewQuestion = ({ open, handleClose, uid }) => {
+const NewQuestion = ({
+  open,
+  handleClose,
+  uid,
+  setMessage,
+  setAlertOpen,
+  setSeverity,
+}) => {
   const classes = useStyles();
   const [category, setCategory] = useState("health");
   const [answer, setAnswer] = useState("");
@@ -48,6 +55,7 @@ const NewQuestion = ({ open, handleClose, uid }) => {
   const [questionType, setQuestionType] = useState("single correct");
   const categoryList = ["health", "wealth", "hobbies", "career"];
   const questionTypeList = ["single correct", "multiple correct", "short"];
+
   const addQuestion = async () => {
     try {
       const res = await axios.post(
@@ -61,8 +69,14 @@ const NewQuestion = ({ open, handleClose, uid }) => {
         }
       );
       handleClose();
+
+      setMessage("Question Added Successfully!! ");
+      setAlertOpen(true);
+      setSeverity("success");
     } catch (err) {
-      console.log(err);
+      setMessage(err.response.data.error);
+      setAlertOpen(true);
+      setSeverity("error");
     }
   };
 

@@ -37,19 +37,18 @@ const useStyles = makeStyles(() => ({
     paddingTop: "100px",
   },
   loginSubContainer: {
-    display:"flex",
+    display: "flex",
     height: "50%",
-    padding:"2rem",
+    padding: "2rem",
     backgroundColor: "white",
-    justifyContent:"center",
-    alignItems:"center",
+    justifyContent: "center",
+    alignItems: "center",
     fontSize: 15,
-    fontFamily:""
-
+    fontFamily: "",
   },
 }));
 
-const Home = ({ uid }) => {
+const Home = ({ uid, setMessage, setAlertOpen, setSeverity }) => {
   const classes = useStyles();
   const [category, setCategory] = useState("");
   const [data, setData] = useState([]);
@@ -106,7 +105,13 @@ const Home = ({ uid }) => {
         {category === "" && data.length === 0 ? (
           <Categories setCategory={setCategory} />
         ) : (
-          <QuestionCard uid={uid} serverData={data} />
+          <QuestionCard
+            uid={uid}
+            serverData={data}
+            setMessage={setMessage}
+            setAlertOpen={setAlertOpen}
+            setSeverity={setSeverity}
+          />
         )}
       </div>
 
