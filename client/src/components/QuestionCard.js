@@ -37,8 +37,7 @@ const QuestionCard = ({ serverData, uid }) => {
           type: "radiogroup",
           title: dat["description"],
           isRequired: true,
-          hasNone: true,
-          colCount: 3,
+          colCount: 1,
           choices: dat["answer"].split("$$"),
         };
       } else if (dat["questiontype"] === "multiple correct") {
@@ -47,8 +46,7 @@ const QuestionCard = ({ serverData, uid }) => {
           type: "checkbox",
           title: dat["description"],
           isRequired: true,
-          hasNone: true,
-          colCount: 3,
+          colCount: 1,
           choices: dat["answer"].split("$$").filter((x) => x !== ""),
         };
       } else {

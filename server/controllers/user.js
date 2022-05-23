@@ -72,9 +72,8 @@ exports.login = asyncHandler(async (req, res, next) => {
         throw new Error(err);
       }
       if (result.rowCount === 0) {
-        res.status(400).json({
-          error: "No user exists!!",
-        });
+        res.status(400);
+        throw new Error("No user exists!!");
       }
       const compareResult = await bcrypt.compare(
         password,
@@ -87,9 +86,8 @@ exports.login = asyncHandler(async (req, res, next) => {
           email: result.rows[0].email,
         });
       } else {
-        res.status(400).json({
-          error: "Password Incorrect!!",
-        });
+        res.status(400);
+        throw new Error("Password Incorrect!!");
       }
     }
   );

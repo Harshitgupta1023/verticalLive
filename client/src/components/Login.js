@@ -92,7 +92,6 @@ const Login = ({ open, handleClose, setUid, setIsAdmin }) => {
           </Typography>
 
           <TextField
-            id="filled-basic"
             variant="filled"
             label="Email"
             style={{ width: "100%", marginTop: "1rem" }}
@@ -104,7 +103,6 @@ const Login = ({ open, handleClose, setUid, setIsAdmin }) => {
             inputProps={{ style: { fontSize: 20 } }}
           />
           <TextField
-            id="filled-basic"
             label="Password"
             variant="filled"
             style={{ width: "100%", marginTop: "2rem" }}

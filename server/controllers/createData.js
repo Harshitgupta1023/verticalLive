@@ -32,7 +32,6 @@ exports.create = async (req, res, next) => {
 exports.answer = async (req, res, next) => {
   try {
     const { uid, result } = req.body;
-    res.send("hello answer");
     let query = [];
     Object.keys(result).map((dat) => {
       query.push(`('${uid}','${dat}','${result[dat]}')`);

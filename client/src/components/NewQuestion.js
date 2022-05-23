@@ -37,6 +37,7 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  overflow:"auto"
 };
 
 const NewQuestion = ({ open, handleClose, uid }) => {
@@ -45,8 +46,8 @@ const NewQuestion = ({ open, handleClose, uid }) => {
   const [answer, setAnswer] = useState("");
   const [description, setDescription] = useState("");
   const [questionType, setQuestionType] = useState("single correct");
-  const categoryList = ["health", "wealth", "carrer", "hobbies"];
-  const questionTypeList = ["single correct","multiple correct","short"]
+  const categoryList = ["health", "wealth", "hobbies", "career"];
+  const questionTypeList = ["single correct", "multiple correct", "short"];
   const addQuestion = async () => {
     try {
       const res = await axios.post(
@@ -95,9 +96,14 @@ const NewQuestion = ({ open, handleClose, uid }) => {
               setDescription(dat.target.value);
             }}
             required={true}
-            InputLabelProps={{ style: { fontSize: 15, color: "black" } }}
-            inputProps={{ style: { fontSize: 18, paddingTop: "5px" } }}
+            InputLabelProps={{
+              style: { fontSize: 15, color: "black", overflow: "auto" },
+            }}
+            inputProps={{
+              style: { fontSize: 18, lineHeight: 1.1, paddingTop: "5px" },
+            }}
             multiline={true}
+            maxRows={4}
           />
           <div className={classes.selectContainer}>
             <Typography
@@ -168,6 +174,7 @@ const NewQuestion = ({ open, handleClose, uid }) => {
                 style: { fontSize: 18, lineHeight: 1.1, paddingTop: "5px" },
               }}
               multiline={true}
+              maxRows={4}
             />
           ) : null}
           {questionType !== "short" ? (

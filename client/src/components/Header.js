@@ -59,20 +59,20 @@ const Header = ({ setUid, uid }) => {
       </div>
       <div className={classes.linkContainer}>
       {isAdmin ? (
-          <a
+          <p
           className="styledButton"
             onClick={handleNewQuestionOpen}
           >
             New Question
-          </a>
+          </p>
         ) : null}
 
-        <a
+        <p
           className="styledButton"
           onClick={uid === "" ? handleLoginOpen : handleLogout}
         >
           {uid === "" ? "Login" : "Logout"}
-        </a>
+        </p>
 
       </div>
       {loginOpen ? (
