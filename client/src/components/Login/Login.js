@@ -22,6 +22,10 @@ const Login = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [isValid,setIsValid] = useState(false)
+  var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+
   const userLogin = async () => {
     try {
       const res = await axios.post(
@@ -92,11 +96,17 @@ const Login = ({
             label="Email"
             style={{ width: "100%", marginTop: "1rem" }}
             onChange={(dat) => {
+              setIsValid(
+                dat.target.value !== "" && dat.target.value.match(validRegex)===null
+              );
               setEmail(dat.target.value);
             }}
             required={true}
             InputLabelProps={{ style: { fontSize: 18, color: "black" } }}
             inputProps={{ style: { fontSize: 20 } }}
+            FormHelperTextProps={{ style: { fontSize: 12 } }}
+            error={isValid}
+            helperText={isValid ? "Enter Correct Email" : ""}
           />
           <TextField
             label="Password"
@@ -109,6 +119,7 @@ const Login = ({
             InputLabelProps={{ style: { fontSize: 18, color: "black" } }}
             inputProps={{ style: { fontSize: 20 } }}
             type="password"
+            autoComplete="on"
           />
           <div className={styles.buttonContainer}>
             <Button onClick={userLogin} text="Login" />
