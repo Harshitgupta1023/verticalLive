@@ -1,34 +1,14 @@
 import React, { useState } from "react";
-import { makeStyles } from "@mui/styles";
+import styles from "./Login.module.css";
+
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-
 import axios from "axios";
-
-const useStyles = makeStyles(() => ({
-  buttonContainer: {
-    display: "flex",
-    justifyContent: "space-around",
-    width: "100%",
-    marginTop: "3rem",
-  },
-}));
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "30%",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import Button from "../Button/Button";
 
 const Login = ({
   open,
@@ -39,7 +19,6 @@ const Login = ({
   setAlertOpen,
   setSeverity,
 }) => {
-  const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -96,7 +75,7 @@ const Login = ({
       }}
     >
       <Fade in={open}>
-        <Box sx={style}>
+        <Box className={styles.container}>
           <Typography
             variant="h2"
             component="h2"
@@ -131,13 +110,9 @@ const Login = ({
             inputProps={{ style: { fontSize: 20 } }}
             type="password"
           />
-          <div className={classes.buttonContainer}>
-            <button onClick={userLogin} className="button">
-              LogIn
-            </button>
-            <button onClick={userSignup} className="button">
-              SignUp
-            </button>
+          <div className={styles.buttonContainer}>
+            <Button onClick={userLogin} text="Login" />
+            <Button onClick={userSignup} text="SignUp" />
           </div>
         </Box>
       </Fade>

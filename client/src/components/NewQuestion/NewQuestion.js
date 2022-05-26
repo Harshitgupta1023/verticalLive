@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from "@mui/styles";
+import styles from "./NewQuestion.module.css";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -10,35 +10,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
 import axios from "axios";
-
-const useStyles = makeStyles(() => ({
-  selectContainer: {
-    width: "75%",
-    marginTop: "2rem",
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
-  buttonContainer: {
-    display: "flex",
-    justifyContent: "space-around",
-    width: "100%",
-    marginTop: "3rem",
-  },
-}));
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "35%",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  overflow: "auto",
-};
+import Button from "../Button/Button";
 
 const NewQuestion = ({
   open,
@@ -48,7 +20,6 @@ const NewQuestion = ({
   setAlertOpen,
   setSeverity,
 }) => {
-  const classes = useStyles();
   const [category, setCategory] = useState("health");
   const [answer, setAnswer] = useState("");
   const [description, setDescription] = useState("");
@@ -91,7 +62,7 @@ const NewQuestion = ({
       }}
     >
       <Fade in={open}>
-        <Box sx={style}>
+        <Box className={styles.container}>
           <Typography
             variant="h3"
             component="h2"
@@ -119,12 +90,12 @@ const NewQuestion = ({
             multiline={true}
             maxRows={4}
           />
-          <div className={classes.selectContainer}>
+          <div className={styles.selectContainer}>
             <Typography
               variant="h5"
               component="h1"
               fontSize={18}
-              style={{ width: "50%" }}
+              className={styles.selectText}
             >
               Choose Question Type
             </Typography>
@@ -134,7 +105,7 @@ const NewQuestion = ({
               onChange={(dat) => {
                 setQuestionType(dat.target.value);
               }}
-              style={{ fontSize: 15 }}
+              className = {styles.selectItem}
             >
               {questionTypeList.map((dat) => {
                 return (
@@ -145,12 +116,12 @@ const NewQuestion = ({
               })}
             </Select>
           </div>
-          <div className={classes.selectContainer}>
+          <div className={styles.selectContainer}>
             <Typography
               variant="h5"
               component="h1"
               fontSize={18}
-              style={{ width: "50%" }}
+              className={styles.selectText}
             >
               Choose Category
             </Typography>
@@ -160,7 +131,7 @@ const NewQuestion = ({
               onChange={(dat) => {
                 setCategory(dat.target.value);
               }}
-              style={{ fontSize: 15 }}
+              className = {styles.selectItem}
             >
               {categoryList.map((dat) => {
                 return (
@@ -201,17 +172,15 @@ const NewQuestion = ({
             </Typography>
           ) : null}
 
-          <div className={classes.buttonContainer}>
-            <button
-              onClick={addQuestion}
-              className="button"
+          <div className={styles.buttonContainer}>
+            <Button
               disabled={
                 description === "" ||
                 (questionType !== "short" && answer === "")
               }
-            >
-              Add Question
-            </button>
+              onClick={addQuestion}
+              text = "Add Question"
+            />
           </div>
         </Box>
       </Fade>

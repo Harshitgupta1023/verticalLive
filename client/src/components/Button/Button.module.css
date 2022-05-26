@@ -1,0 +1,29 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "lato";
+  font-size: 18px;
+  padding: 1rem 1.5rem;
+  letter-spacing: 0.05em;
+  border-radius: 20em;
+  border-width: 1px;
+  margin: 1rem 1rem;
+  box-shadow: 0 0.5em 1.5em -0.5em #4c584f98;
+  background-color: white;
+}
+
+.button:hover {
+  box-shadow: 0 0.5em 1.5em -0.5em #1f8aa298;
+}
+
+.button:active {
+  box-shadow: 0 0.3em 1em -0.5em #3fb2d598;
+}
+
+@media screen and (max-width: 460px) {
+  .button{
+    font-size: 12px;
+  }
+  
+}

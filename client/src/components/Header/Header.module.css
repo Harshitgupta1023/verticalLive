@@ -1,0 +1,148 @@
+.color {
+  --primary-color: #014d4e;
+  --secondary-color: #ff9408;
+  --secondary-color-m: #ff94088e;
+  --tertiary-color: #0e999bb9;
+  --tertiary-color-m: #4de6e998;
+}
+
+.container {
+  height: 7rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  box-shadow: 1px 1px rgba(0, 0, 0, 1);
+  padding: 1rem;
+  background-color: var(--primary-color);
+  justify-content: space-between;
+  z-index: 2;
+
+}
+.logoContainer {
+  width: 5%;
+}
+.nameContainer {
+  text-align: center;
+  font-size: calc(1vw + 1.5rem);
+  color: white;
+  margin-left: calc(1vw + 1rem);
+}
+
+.linkContainer {
+  display: flex;
+  margin-right: 5rem;
+  z-index: 2;
+
+}
+
+.hamburger {
+  position: fixed;
+  display: none;
+}
+
+.styledButton {
+  text-decoration: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-style: italic;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.styledButton::after,
+.styledButton::before {
+  position: absolute;
+  content: "";
+  left:0;
+  width:100%;
+  height: 0rem;
+  background-color: white;
+  color: var(--primary-color);
+  border-radius: 1rem;
+  transform: scaleX(0);
+  transition: transform 0.35s cubic-bezier(1, 0, 0, 1);
+}
+
+.styledButton:hover::after{
+  height: 0.2rem;
+  bottom: 0;
+  transform-origin: right;
+  transform: scaleX(1);
+}
+
+.styledButton:hover::before{
+  height: 0.2rem;
+  top: 0;
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+@media screen and (max-width: 610px) {
+  .linkContainer {
+    width: 30rem;
+    height: 100vh;
+    top: 0;
+    right: -40rem;
+    background-color: var(--secondary-color);
+    margin-right: 0rem;
+    position: fixed;
+    flex-direction: column;
+    padding-top: 6rem;
+    z-index: 2;
+  }
+
+  .hamburger {
+    width: 5rem;
+    height: 5rem;
+    position: fixed;
+    top: 1rem;
+    right: 2.5rem;
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: var(--primary-color);
+  }
+
+  .line {
+    width: 100%;
+    height: 0.3rem;
+    background-color: white;
+    border-radius: 0.2rem;
+    transition: all 0.4s ease-in-out;
+  }
+  .clicked {
+    left: 55%;
+  }
+
+  .line-1 {
+    transform: rotateZ(-405deg) translate(-0.8rem, 0.6rem);
+  }
+
+  .line-2 {
+    opacity: 0;
+  }
+
+  .line-3 {
+    transform: rotateZ(405deg) translate(-0.8rem, -0.6rem);
+  }
+  
+  .list_item1{
+      display: flex;
+      width: 25%;
+      justify-content: center;
+  }
+
+  .list_item2{
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    
+  }
+}

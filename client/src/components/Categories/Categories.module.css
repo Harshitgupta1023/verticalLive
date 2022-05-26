@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 450px) {
+  .container {
+    flex-direction: column;
+    width: 100%;    
+  }
+}

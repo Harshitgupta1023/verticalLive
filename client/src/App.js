@@ -1,24 +1,25 @@
 import "./App.css";
-import Header from "./components/Header";
-import Home from "./Pages/Home";
+import Header from "./components/Header/Header";
+import Home from "./Pages/Home/Home";
 import { makeStyles } from "@mui/styles";
 import Footer from "./components/Footer";
 import { useState } from "react";
-import AlertModified from "./components/AlertModified";
+import AlertModified from "./components/AlertModified/AlertModified";
 
 const useStyles = makeStyles(() => ({
   container: {
-    position: "relative",
-    width: "98.9vw",
+    width: "100vw",
     height: "100vh",
     display: "flex",
     flexDirection: "column",
   },
   headerContainer: {
-    // height: "10%",
+    height: "7rem",
+    marginBottom:"0.3rem",
+
   },
   homeContainer: {
-    height: "90%",
+    height: "100%",
   },
   footerContaienr: {
     height: "10%",

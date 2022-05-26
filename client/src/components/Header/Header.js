@@ -1,42 +1,14 @@
 import React, { useState } from "react";
-import { makeStyles } from "@mui/styles";
-import logo from "../assets/logo.jpg";
-import Login from "./Login";
-import NewQuestion from "./NewQuestion";
-import { color } from "../constant/colors";
+import styles from "./Header.module.css";
 
-const useStyles = makeStyles(() => ({
-  container: {
-    display: "flex",
-    alignItems: "center",
-    boxShadow: "1px 1px rgba(0,0,0,1)",
-    marginBottom: "0.3rem",
-    padding: "1rem",
-    backgroundColor: color.primary,
-    justifyContent: "space-between",
-  },
-  logoContainer: {
-    width: "5%",
-  },
-  nameContainer: {
-    textAlign: "center",
-    fontSize: "3rem",
-    alignSelf: "center",
-    color: "white",
-    marginLeft: "2rem",
-  },
-  linkContainer: {
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-    marginRight: "5rem",
-  },
-}));
+import cx from "classnames";
+import logo from "../../assets/logo.jpg";
+import Login from "../Login/Login";
+import NewQuestion from "../NewQuestion/NewQuestion";
 
 const Header = ({ setUid, uid, setMessage, setAlertOpen, setSeverity }) => {
-  const classes = useStyles();
   const [isAdmin, setIsAdmin] = useState(false);
-
+  const [hamBurger, setHamBurger] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const handleLoginOpen = () => setLoginOpen(true);
   const handleLoginClose = () => setLoginOpen(false);
@@ -49,23 +21,47 @@ const Header = ({ setUid, uid, setMessage, setAlertOpen, setSeverity }) => {
     setUid("");
     setIsAdmin(false);
   };
+
   return (
-    <div className={classes.container}>
-      {/* <div className={classes.logoContainer}>
+    <div className={styles.container}>
+      {/* <div className={styles.logoContainer}>
         <img style={{ width: "100%", height: "100%" }} src={logo} alt="Logo" />
       </div> */}
-      <div className={classes.nameContainer}>
+      <div className={styles.nameContainer}>
         <p>Survey App</p>
       </div>
-      <div className={classes.linkContainer}>
+      <div
+        className={cx(styles.linkContainer, hamBurger ? styles.clicked : "")}
+      >
+        <div
+          className={styles.hamburger}
+          onClick={() => {
+            setHamBurger(!hamBurger);
+          }}
+        >
+          <div
+            className={cx(styles.line, hamBurger ? styles["line-1"] : "")}
+          ></div>
+          <div
+            className={cx(styles.line, hamBurger ? styles["line-2"] : "")}
+          ></div>
+          <div
+            className={cx(styles.line, hamBurger ? styles["line-3"] : "")}
+          ></div>
+        </div>
+
         {isAdmin ? (
-          <p className="styledButton" onClick={handleNewQuestionOpen}>
+          <p
+            className={cx(styles.styledButton, styles.list_item2)}
+            onClick={handleNewQuestionOpen}
+          >
             New Question
           </p>
         ) : null}
 
         <p
-          className="styledButton"
+          id="list_item1"
+          className={cx(styles.styledButton, styles.list_item1)}
           onClick={uid === "" ? handleLoginOpen : handleLogout}
         >
           {uid === "" ? "Login" : "Logout"}

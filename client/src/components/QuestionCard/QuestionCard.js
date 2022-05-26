@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "./QuestionCard.module.css"
 import "survey-core/modern.min.css";
 import { StylesManager, Model } from "survey-core";
 import { Survey } from "survey-react-ui";
@@ -79,7 +80,7 @@ const QuestionCard = ({
   survey.onComplete.add(sendResult);
 
   return (
-    <div style={{ marginBottom: "5rem" }}>
+    <div className={styles.container}>
       {serverData.length !== 0 ? <Survey model={survey} /> : null}
     </div>
   );

@@ -1,0 +1,83 @@
+.color {
+  --primary-color: #014d4e;
+  --secondary-color: #ff9408;
+  --secondary-color-m: #ff94088e;
+  --tertiary-color: #0e999bb9;
+  --tertiary-color-m: #4de6e998;
+}
+
+/* Styles when user is not authenticated */
+.loginContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--tertiary-color);
+}
+.loginSubContainer {
+  display: flex;
+  height: 20%;
+  width: 29%;
+  padding: 2rem;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(0.5rem + 0.5vw);
+  font-family: "";
+}
+
+/* styles when users authenticated */
+
+.container {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--tertiary-color);
+}
+
+.extraContainer {
+  width: 20%;
+  height: 100%;
+}
+
+.questionContainer {
+  position: relative;
+  width: 60%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.textContainer {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  font-family: "";
+  font-style: italic;
+  font-size: 15px;
+  margin-left: 2rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .loginSubContainer {
+    width: 50%;
+    padding: 2rem;
+    height: 10%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .loginSubContainer {
+    padding: 1rem;
+  }
+  .questionContainer {
+    width: 90%;
+  }
+  .extraContainer {
+    width: 5%;
+  }
+  .textContainer{
+    font-size: 12px;
+  }
+}
