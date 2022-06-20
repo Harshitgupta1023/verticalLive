@@ -12,7 +12,6 @@
   display: flex;
   align-items: center;
   box-shadow: 1px 1px rgba(0, 0, 0, 1);
-  padding: 1rem;
   background-color: var(--primary-color);
   justify-content: space-between;
   z-index: 2;

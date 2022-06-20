@@ -11,6 +11,7 @@
   margin: 1rem 1rem;
   box-shadow: 0 0.5em 1.5em -0.5em #4c584f98;
   background-color: white;
+  cursor: pointer;
 }
 
 .button:hover {

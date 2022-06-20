@@ -5,6 +5,20 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.create = async (req, res, next) => {
+  var currentdate = new Date();
+  var datetime =
+    currentdate.getDate() +
+    "/" +
+    (currentdate.getMonth() + 1) +
+    "/" +
+    currentdate.getFullYear() +
+    " @ " +
+    currentdate.getHours() +
+    ":" +
+    currentdate.getMinutes() +
+    ":" +
+    currentdate.getSeconds();
+
   const qid = makeID(8);
   const { category, answer, description, questionType, uid } = req.body;
   if (uid !== process.env.ADMIN_ID) {
@@ -13,8 +27,8 @@ exports.create = async (req, res, next) => {
   }
   try {
     pool.query(
-      "INSERT INTO question (QID,description,questionType,category,answer) VALUES ($1,$2,$3,$4,$5)",
-      [qid, description, questionType, category, answer],
+      "INSERT INTO question (QID,description,questionType,category,answer,createdAt) VALUES ($1,$2,$3,$4,$5,$6)",
+      [qid, description, questionType, category, answer, datetime],
       (err, result) => {
         if (err) {
           res.status(400).json({ error: err.message });
@@ -23,29 +37,6 @@ exports.create = async (req, res, next) => {
       }
     );
     res.status(200).send("Done");
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-    throw new Error(err);
-  }
-};
-
-exports.answer = async (req, res, next) => {
-  try {
-    const { uid, result } = req.body;
-    let query = [];
-    Object.keys(result).map((dat) => {
-      query.push(`('${uid}','${dat}','${result[dat]}')`);
-    });
-    pool.query(
-      "INSERT INTO answerData (UID,QID,answer) VALUES " + query.join(",") + ";",
-      (err, result) => {
-        if (err) {
-          res.status(400).json({ error: err.message });
-          throw new Error(err);
-        }
-        res.status(200).send("Done");
-      }
-    );
   } catch (err) {
     res.status(400).json({ error: err.message });
     throw new Error(err);

@@ -1,5 +1,13 @@
 .container {
-  margin-bottom: 5rem;
+  padding-bottom: 20px;
   width: 100%;
   overflow: auto;
+  position: relative;
+  font-size: 15px;
+}
+
+.buttonContainer {
+  position: absolute;
+  bottom: 15px;
+  right :0
 }
