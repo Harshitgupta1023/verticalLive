@@ -10,6 +10,14 @@ import DisplayResult from "../DisplayResult/DisplayResult";
 import { updateServerData } from "./QuestionCardUtil";
 
 StylesManager.applyTheme("modern");
+var myCss = {
+  question: {
+    title: `${styles.survey_title}`,
+  },
+  matrix:{
+    cell: `${styles.survey_matrix__cell}`
+  }
+};
 
 const QuestionCard = ({
   serverData,
@@ -67,7 +75,7 @@ const QuestionCard = ({
   return (
     <div className={styles.container}>
       {serverData.length !== 0 && displayResult.length === 0 ? (
-        <Survey model={survey}  />
+        <Survey model={survey} css={myCss} />
       ) : null}
       {displayResult.length !== 0 ? (
         <DisplayResult result={displayResult} />

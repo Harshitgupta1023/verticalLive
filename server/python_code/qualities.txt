@@ -1,15 +1,14 @@
 leadership 
 emotional intelligence 
-precision 
 caring 
 animal loving 
 human body 
 law 
-accounting
 math 
+precision 
+accounting
 management 
 interpreting 
-communication
 design
 data analysis
 attention to detail
@@ -22,11 +21,11 @@ curious
 mystery
 eye
 networking
+communication
 creativity
 patience
 hardware
 finance
-observation
 decision making
 social media
 time management

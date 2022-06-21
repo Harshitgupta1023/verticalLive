@@ -22,13 +22,6 @@ for i in f.readlines():
     careers[line[0]] = line[1:]
     k+=1
 
-# intialising qid with quality
-qid_quality = {}
-f = open("python_code/qid_quality.txt",'r')
-for i in f.readlines():
-    line = i.strip().split()
-    qid_quality[line[0]] = " ".join(line[1:])
-
 # building up data matrix 
 rows = len(careers_index)
 columns = len(quality_index)
@@ -40,14 +33,6 @@ for career in careers:
         data[careers_index[career]][quality_index[quality]] = 1
 
 # getting input from user
-
-option_score = {
-    "Strongly agree": 1,
-    "Somewhat agree" : 0.5,
-    "Neither agree nor disagree" : 0,
-    "Somewhat disagree" : -0.5,
-    "Strongly disagree" : 1
-}
 
 user_input = {}
 for i in sys.argv[1:]:
@@ -81,5 +66,14 @@ recommended = sorted(scores.items(),key=lambda x:-x[1])
 
 # filtering 
 # print("User Interests :- ",*user_input)
-print("$$".join([i[0] for i in recommended][:5]))
+print("$$".join([i[0] for i in recommended][:10]))
 
+
+# # Code for building matrix question
+# f1 = open("qualities.txt","r")
+# f2 = open("questions.txt","r")
+# t = []
+# for i,j in zip(f1.readlines(),f2.readlines()):
+#     t.append(i.strip()+"="+j.strip())
+
+# print("$$".join(t))

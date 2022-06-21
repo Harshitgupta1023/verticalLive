@@ -9,5 +9,29 @@
 .buttonContainer {
   position: absolute;
   bottom: 15px;
-  right :0
+  right: 0;
+}
+
+.survey_title {
+  font-size: 18px;
+}
+
+.survey_matrix__cell {
+  text-align: center;
+  border-top : 1px solid rgba(0,0,0,0.1);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow: auto;
+}
+
+@media screen and (max-width: 600px) {
+
+  .survey_matrix__cell {
+    text-align: left;
+    padding-left: 10px;    
+    border-top : 0px solid rgba(0,0,0,0.1);
+    padding-top: 0px;
+    padding-bottom: 0px;  
+  }
+  
 }
