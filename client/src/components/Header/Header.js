@@ -6,16 +6,35 @@ import logo from "../../assets/logo.jpg";
 import Login from "../Login/Login";
 import NewQuestion from "../NewQuestion/NewQuestion";
 
-const Header = ({ setUid, uid, setMessage, setAlertOpen, setSeverity }) => {
-  const [isAdmin, setIsAdmin] = useState(false);
+const HamBurgerMenu = ({ hamBurger, setHamBurger }) => {
+  return (
+    <div className={styles.hamburger} onClick={() => setHamBurger(!hamBurger)}>
+      <div className={cx(styles.line, hamBurger ? styles["line-1"] : "")}></div>
+      <div className={cx(styles.line, hamBurger ? styles["line-2"] : "")}></div>
+      <div className={cx(styles.line, hamBurger ? styles["line-3"] : "")}></div>
+    </div>
+  );
+};
+
+const Header = ({
+  setUid,
+  uid,
+  setMessage,
+  setAlertOpen,
+  setSeverity,
+  newRoleOpen,
+  setNewRoleOpen,
+  isAdmin,
+  setIsAdmin,
+}) => {
   const [hamBurger, setHamBurger] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
-  const handleLoginOpen = () => setLoginOpen(true);
-  const handleLoginClose = () => setLoginOpen(false);
+  const handleLogin = () => setLoginOpen(!loginOpen);
 
   const [newQuestionOpen, setNewQuestionOpen] = useState(false);
-  const handleNewQuestionOpen = () => setNewQuestionOpen(true);
-  const handleNewQuestionClose = () => setNewQuestionOpen(false);
+  const handleNewQuestion = () => setNewQuestionOpen(!newQuestionOpen);
+
+  const handleNewRole = () => setNewRoleOpen(!newRoleOpen);
 
   const handleLogout = () => {
     setUid("");
@@ -40,26 +59,20 @@ const Header = ({ setUid, uid, setMessage, setAlertOpen, setSeverity }) => {
         <div
           className={cx(styles.linkContainer, hamBurger ? styles.clicked : "")}
         >
-          <div
-            className={styles.hamburger}
-            onClick={() => {
-              setHamBurger(!hamBurger);
-            }}
-          >
-            <div
-              className={cx(styles.line, hamBurger ? styles["line-1"] : "")}
-            ></div>
-            <div
-              className={cx(styles.line, hamBurger ? styles["line-2"] : "")}
-            ></div>
-            <div
-              className={cx(styles.line, hamBurger ? styles["line-3"] : "")}
-            ></div>
-          </div>
+          <HamBurgerMenu hamBurger={hamBurger} setHamBurger={setHamBurger} />
           {isAdmin ? (
             <p
               className={cx(styles.styledButton, styles.list_item2)}
-              onClick={handleNewQuestionOpen}
+              onClick={handleNewRole}
+            >
+              New Role
+            </p>
+          ) : null}
+
+          {isAdmin ? (
+            <p
+              className={cx(styles.styledButton, styles.list_item2)}
+              onClick={handleNewQuestion}
             >
               New Question
             </p>
@@ -68,7 +81,7 @@ const Header = ({ setUid, uid, setMessage, setAlertOpen, setSeverity }) => {
           <p
             id="list_item1"
             className={cx(styles.styledButton, styles.list_item1)}
-            onClick={uid === "" ? handleLoginOpen : handleLogout}
+            onClick={uid === "" ? handleLogin : handleLogout}
           >
             {uid === "" ? "Login" : "Logout"}
           </p>
@@ -76,7 +89,7 @@ const Header = ({ setUid, uid, setMessage, setAlertOpen, setSeverity }) => {
         {loginOpen ? (
           <Login
             open={loginOpen}
-            handleClose={handleLoginClose}
+            handleClose={handleLogin}
             setUid={setUid}
             setIsAdmin={setIsAdmin}
             setMessage={setMessage}
@@ -87,7 +100,7 @@ const Header = ({ setUid, uid, setMessage, setAlertOpen, setSeverity }) => {
         {isAdmin && newQuestionOpen ? (
           <NewQuestion
             open={newQuestionOpen}
-            handleClose={handleNewQuestionClose}
+            handleClose={handleNewQuestion}
             uid={uid}
             setMessage={setMessage}
             setAlertOpen={setAlertOpen}

@@ -8,15 +8,16 @@ import Button from "../Button/Button";
 import axios from "axios";
 import DisplayResult from "../DisplayResult/DisplayResult";
 import { updateServerData } from "./QuestionCardUtil";
+import Loading from "../Loading/Loading";
 
 StylesManager.applyTheme("modern");
 var myCss = {
   question: {
     title: `${styles.survey_title}`,
   },
-  matrix:{
-    cell: `${styles.survey_matrix__cell}`
-  }
+  matrix: {
+    cell: `${styles.survey_matrix__cell}`,
+  },
 };
 
 const QuestionCard = ({
@@ -27,7 +28,9 @@ const QuestionCard = ({
   setSeverity,
 }) => {
   const [displayResult, setDisplayResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const sendResult = async (sender) => {
+    setIsLoading(true);
     let results = sender.data;
     Object.keys(results).map((dat) => {
       if (typeof results[dat] === "object") {
@@ -57,15 +60,23 @@ const QuestionCard = ({
       setAlertOpen(true);
       setSeverity("error");
     }
+    setIsLoading(false);
   };
   const data = {
     elements: [],
   };
+
   if (serverData.length !== 0) {
     serverData.map((dat) => {
       data["elements"].push(updateServerData((dat = { dat })));
       return "";
     });
+  }
+
+  if (isLoading) {
+    return (
+      <Loading/>
+    ); 
   }
 
   const survey = new Model(data);

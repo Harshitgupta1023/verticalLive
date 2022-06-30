@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import Button from "../Button/Button";
+import Loading from "../Loading/Loading";
 
 const Login = ({
   open,
@@ -19,6 +20,7 @@ const Login = ({
   setAlertOpen,
   setSeverity,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,6 +29,7 @@ const Login = ({
 
 
   const userLogin = async () => {
+    setIsLoading(true);
     try {
       const res = await axios.post(
         process.env.REACT_APP_SERVER_IP + "loginUser",
@@ -43,9 +46,11 @@ const Login = ({
       setAlertOpen(true);
       setSeverity("error");
     }
+    setIsLoading(false);
   };
 
   const userSignup = async () => {
+    setIsLoading(true);
     try {
       const res = await axios.post(
         process.env.REACT_APP_SERVER_IP + "createUser",
@@ -66,7 +71,17 @@ const Login = ({
       setAlertOpen(true);
       setSeverity("error");
     }
+    setIsLoading(false);
+
   };
+
+
+  if (isLoading) {
+    return (
+      <Loading/>
+    ); 
+  }
+
 
   return (
     <Modal

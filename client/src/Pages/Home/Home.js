@@ -4,7 +4,17 @@ import Categories from "../../components/Categories/Categories";
 import axios from "axios";
 import styles from "./Home.module.css";
 import Button from "../../components/Button/Button";
-const Home = ({ uid, setMessage, setAlertOpen, setSeverity }) => {
+import NewRole from "../../components/NewRole/NewRole";
+
+const Home = ({
+  uid,
+  setMessage,
+  setAlertOpen,
+  setSeverity,
+  newRoleOpen,
+  setNewRoleOpen,
+  isAdmin,
+}) => {
   const [category, setCategory] = useState("");
   const [data, setData] = useState([]);
 
@@ -35,38 +45,60 @@ const Home = ({ uid, setMessage, setAlertOpen, setSeverity }) => {
   return (
     <div className={styles.container}>
       <div className={styles.extraContainer}></div>
-      <div className={styles.questionContainer}>
-        <div
-          className={styles.textContainer}
-          style={{
-            justifyContent: category === "" ? "center" : "space-between",
-          }}
-        >
-          <h1>
-            {category === "" ? "Select Category" : `Questions on ${category}`}
-          </h1>
-          {category !== "" ? (
+      {newRoleOpen && isAdmin ? (
+        <div className={styles.questionContainer}>
+          <div className={styles.roleTextContainer}>
+            <h1>New Role</h1>
             <Button
               onClick={() => {
-                setCategory("");
-                setData([]);
+                setNewRoleOpen(!newRoleOpen && isAdmin);
               }}
               text="Back"
             />
-          ) : null}
-        </div>
-        {category === "" && data.length === 0 ? (
-          <Categories setCategory={setCategory} />
-        ) : (
-          <QuestionCard
+          </div>
+
+          <NewRole
             uid={uid}
-            serverData={data}
             setMessage={setMessage}
             setAlertOpen={setAlertOpen}
             setSeverity={setSeverity}
           />
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className={styles.questionContainer}>
+          <div
+            className={styles.textContainer}
+            style={{
+              justifyContent: category === "" ? "center" : "space-between",
+            }}
+          >
+            <h1>
+              {category === "" ? "Select Category" : `Questions on ${category}`}
+            </h1>
+            {category !== "" ? (
+              <Button
+                onClick={() => {
+                  setCategory("");
+                  setData([]);
+                }}
+                text="Back"
+              />
+            ) : null}
+          </div>
+          {category === "" && data.length === 0 ? (
+            <Categories setCategory={setCategory} />
+          ) : (
+            <QuestionCard
+              serverData={data}
+              uid={uid}
+              setMessage={setMessage}
+              setAlertOpen={setAlertOpen}
+              setSeverity={setSeverity}
+            />
+          )}
+        </div>
+      )}
+
       <div className={styles.extraContainer}></div>
     </div>
   );

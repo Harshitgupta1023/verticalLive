@@ -53,7 +53,7 @@ for i in sorted(quality_index,key = lambda x:quality_index[x]):
         user_data.append(user_input[i])
     else: 
         user_data.append(0) 
-        
+
 
 # scoring
 scores = {}

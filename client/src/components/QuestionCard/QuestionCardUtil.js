@@ -37,16 +37,16 @@ export const updateServerData = ({ dat }) => {
         "Please indicate if you agree or disagree with the following statements",
       columns: [
         { value: 1, text: "Strongly Agree" },
-        { value: 0.5, text: "Agree" },
+        { value: 0.5, text: "Agree"},
         { value: 0, text: "Neutral" },
-        { value: -1, text: "Strongly Disagree" },
         { value: -0.5, text: "Disagree" },
+        { value: -1, text: "Strongly Disagree" },
       ],
       rows: [],
     };
     dat["description"].split("$$").map((dat) => {
       var [a, b] = dat.split("=");
-      tempObj.rows.push({ value: a, text: b });
+      tempObj.rows.push({ name:a,value: a, text: b });
     });
   }
   return tempObj;

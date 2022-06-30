@@ -15,8 +15,7 @@ const useStyles = makeStyles(() => ({
   },
   headerContainer: {
     height: "7rem",
-    marginBottom:"0.3rem",
-
+    marginBottom: "0.3rem",
   },
   homeContainer: {
     height: "100%",
@@ -32,6 +31,8 @@ const App = () => {
   const [message, setMessage] = useState("");
   const [alertOpen, setAlertOpen] = useState(false);
   const [severity, setSeverity] = useState("success");
+  const [newRoleOpen, setNewRoleOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   return (
     <div className={classes.container}>
@@ -49,6 +50,10 @@ const App = () => {
           setMessage={setMessage}
           setAlertOpen={setAlertOpen}
           setSeverity={setSeverity}
+          newRoleOpen={newRoleOpen}
+          setNewRoleOpen={setNewRoleOpen}
+          isAdmin={isAdmin}
+          setIsAdmin={setIsAdmin}
         />
       </div>
       <div className={classes.homeContainer}>
@@ -57,6 +62,9 @@ const App = () => {
           setMessage={setMessage}
           setAlertOpen={setAlertOpen}
           setSeverity={setSeverity}
+          newRoleOpen={newRoleOpen}
+          setNewRoleOpen={setNewRoleOpen}
+          isAdmin={isAdmin}
         />
       </div>
       {/* <div className={classes.footerContaienr}>

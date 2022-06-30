@@ -48,7 +48,17 @@
   display: flex;
   flex-direction: column;
 }
+.roleTextContainer{
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  font-family: "";
+  font-style: italic;
+  font-size: 15px;
+  margin-left: 2rem;
+  justify-content: space-between;
 
+}
 .textContainer {
   display: flex;
   align-items: center;
