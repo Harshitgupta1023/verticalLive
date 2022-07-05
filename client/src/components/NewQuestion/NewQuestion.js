@@ -11,7 +11,8 @@ import MenuItem from "@mui/material/MenuItem";
 
 import axios from "axios";
 import Button from "../Button/Button";
-
+import { categoryList, questionTypeList } from "../../constant/categories";
+import DropDownMenu from "../DropDownMenu/DropDownMenu";
 const NewQuestion = ({
   open,
   handleClose,
@@ -20,12 +21,10 @@ const NewQuestion = ({
   setAlertOpen,
   setSeverity,
 }) => {
-  const [category, setCategory] = useState("health");
+  const [category, setCategory] = useState(categoryList[0]);
   const [answer, setAnswer] = useState("");
   const [description, setDescription] = useState("");
   const [questionType, setQuestionType] = useState("single correct");
-  const categoryList = ["health", "wealth", "hobbies", "career"];
-  const questionTypeList = ["single correct", "multiple correct", "short"];
 
   const addQuestion = async () => {
     try {
@@ -100,21 +99,11 @@ const NewQuestion = ({
               Choose Question Type
             </Typography>
 
-            <Select
-              value={questionType}
-              onChange={(dat) => {
-                setQuestionType(dat.target.value);
-              }}
-              className = {styles.selectItem}
-            >
-              {questionTypeList.map((dat) => {
-                return (
-                  <MenuItem value={dat} style={{ fontSize: 15 }} key={dat}>
-                    {dat}
-                  </MenuItem>
-                );
-              })}
-            </Select>
+            <DropDownMenu
+              state={questionType}
+              setState={setQuestionType}
+              listItem={questionTypeList}
+            />
           </div>
           <div className={styles.selectContainer}>
             <Typography
@@ -125,22 +114,11 @@ const NewQuestion = ({
             >
               Choose Category
             </Typography>
-
-            <Select
-              value={category}
-              onChange={(dat) => {
-                setCategory(dat.target.value);
-              }}
-              className = {styles.selectItem}
-            >
-              {categoryList.map((dat) => {
-                return (
-                  <MenuItem value={dat} style={{ fontSize: 15 }} key={dat}>
-                    {dat}
-                  </MenuItem>
-                );
-              })}
-            </Select>
+            <DropDownMenu
+              state={category}
+              setState={setCategory}
+              listItem={categoryList}
+            />
           </div>
           {questionType !== "short" ? (
             <TextField
@@ -179,7 +157,7 @@ const NewQuestion = ({
                 (questionType !== "short" && answer === "")
               }
               onClick={addQuestion}
-              text = "Add Question"
+              text="Add Question"
             />
           </div>
         </Box>

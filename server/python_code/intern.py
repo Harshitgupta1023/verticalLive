@@ -1,41 +1,79 @@
 import sys
+import os
+from urllib.parse import urlparse
+import psycopg2
+
+# Connecting to database
+try:
+    result = urlparse(os.getenv("DATABASE_URL"))
+    connection = psycopg2.connect(
+        database = result.path[1:],
+        user = result.username,
+        password = result.password,
+        host = result.hostname,
+        port = result.port
+    )
+
+    cursor = connection.cursor()
+except:
+    raise Exception("Can't Connect to database.")
+
+# Query for getting all roles based on category
+try:
+    roles_query = "SELECT * FROM roles WHERE category=%s;"
+    cursor.execute(roles_query,(sys.argv[1],))
+    roles_records = cursor.fetchall()
+except:
+    raise Exception("Roles query failed.")
+
+# Query for getting all quality based on qrid
+try:
+    arr = []
+    for row in roles_records:
+        arr.append(row[0])
+    arr = "','".join(arr)
+    quality_query = f"SELECT * FROM quality WHERE qrid IN ( '{arr}');"
+    cursor.execute(quality_query)
+    quality_records = cursor.fetchall()
+except:
+    raise Exception("Quality query failed.")
 
 # intialising qualities
 quality_index = {}
-qualities = []
-f = open("python_code/qualities.txt",'r')
+quality_qrid = {}
 k = 0
-for i in f.readlines():    
-    line = i.strip()
-    quality_index[line] = k
-    qualities.append(line)
-    k+=1
+for row in quality_records:    
+    a,b,c = row[0],row[1],row[2]
+    b,c = b.split("$$"),c.split("$$")
+    quality_qrid[a] = [b,c]
+    for i in b:
+        if i in quality_index: continue
+        quality_index[i] = k
+        k+=1
 
 # intialising careers
 careers = {}
 careers_index = {}
-f = open("python_code/careers.txt",'r')
 k = 0
-for i in f.readlines():    
-    line = i.strip().split("$$")
-    careers_index[line[0]] = k
-    careers[line[0]] = line[1:]
+for row in roles_records:    
+    a,b,c = row[0],row[1],row[2]
+    careers_index[c] = k
+    careers[c] = quality_qrid[a] 
     k+=1
 
 # building up data matrix 
 rows = len(careers_index)
 columns = len(quality_index)
-
-data = [[0]*columns for i in range(rows)]
+data = [[0]*columns for _ in range(rows)]
 
 for career in careers:
-    for quality in careers[career]:
-        data[careers_index[career]][quality_index[quality]] = 1
+    for quality,weight in zip(careers[career][0],careers[career][1]) :
+        data[careers_index[career]][quality_index[quality]] = float(weight)
 
 # getting input from user
 
 user_input = {}
-for i in sys.argv[1:]:
+for i in sys.argv[2:]:
     for j in i.split(","):
         if len(j.split("=")) < 2:
             print("Feature to be released soon")
@@ -47,13 +85,9 @@ for i in sys.argv[1:]:
         user_input[a] = float(b)
 
 # generating candidates using content filtering
-user_data = []
-for i in sorted(quality_index,key = lambda x:quality_index[x]):
-    if i in user_input:
-        user_data.append(user_input[i])
-    else: 
-        user_data.append(0) 
-
+user_data = [0]*columns
+for i in user_input:
+    user_data[quality_index[i]] = user_input[i]
 
 # scoring
 scores = {}

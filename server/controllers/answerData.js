@@ -20,9 +20,9 @@ exports.answer = async (req, res, next) => {
       ":" +
       currentdate.getSeconds();
 
-    const { uid, result } = req.body;
+    const { uid, category,result } = req.body;
     let query = [];
-    let value = [];
+    let value = [category];
     Object.keys(result).map((dat) => {
       query.push(`('${uid}','${dat}','${result[dat]}','${datetime}')`);
       value.push(`${result[dat].split("$$")}`);

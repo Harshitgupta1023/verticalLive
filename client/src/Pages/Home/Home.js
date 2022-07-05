@@ -94,6 +94,7 @@ const Home = ({
               setMessage={setMessage}
               setAlertOpen={setAlertOpen}
               setSeverity={setSeverity}
+              category={category}
             />
           )}
         </div>

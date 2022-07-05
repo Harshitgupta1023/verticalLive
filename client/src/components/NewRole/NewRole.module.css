@@ -1,56 +1,46 @@
 .container {
-  position: absolute;
-  max-height: 90vh;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 35%;
-  background-color: white;
-  border: "2px solid #000";
-  box-shadow: 24;
-  padding: 4rem;
-  overflow: auto;
-}
-
-.selectContainer {
   width: 100%;
-  margin-top: 2rem;
+  height: 100%;
+}
+
+.menuContainer {
+  width: 100%;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }
 
-.selectItem {
-  font-size: 15px;
-  width: 50%;
-}
-
-.selectText {
-  width: 50%;
-  margin-right: 1rem;
-}
-.buttonContainer {
-  margin-top: 2rem;
+.categoryContainer {
+  width: 25%;
   display: flex;
   justify-content: center;
 }
 
-@media screen and (max-width: 1020px) {
-  .container {
-    width: 50%;
-    padding: 2rem;
-  }
+.roleContainer {
+  width: 75%;
+  display: flex;
+  justify-content: center;
 }
-@media screen and (max-width: 450px) {
-  .container {
-    width: 90%;
-    padding: 2rem;
-  }
-  .selectText {
-    font-size: 15px;
-  }
 
-  .buttonContainer {
-    flex-direction: column;
-  }
+.dropDownStyle1 {
+  width: 50%;
+  font-size: 15px;
+}
+.dropDownStyle2 {
+  width: 30%;
+  font-size: 15px;
+}
+
+.roleTextContainer {
+  display: flex;
+  align-items: center;
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 10px;
+  /* margin-left: 2rem; */
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tableContainer {
+  padding: 1rem;
+}
+@media screen and (max-width: 1020px) {
 }

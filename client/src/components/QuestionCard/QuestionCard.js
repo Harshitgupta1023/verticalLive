@@ -26,6 +26,7 @@ const QuestionCard = ({
   setMessage,
   setAlertOpen,
   setSeverity,
+  category,
 }) => {
   const [displayResult, setDisplayResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +51,7 @@ const QuestionCard = ({
       const res = await axios.post(process.env.REACT_APP_SERVER_IP + "answer", {
         uid: uid,
         result: results,
+        category: category,
       });
       setMessage("Answer Submitted Successfully!! ");
       setAlertOpen(true);
@@ -74,9 +76,7 @@ const QuestionCard = ({
   }
 
   if (isLoading) {
-    return (
-      <Loading/>
-    ); 
+    return <Loading />;
   }
 
   const survey = new Model(data);
