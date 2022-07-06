@@ -25,7 +25,6 @@ const TableNewRole = ({ headData, data, setData, roleId }) => {
       setSortColumn(dat);
       setAscending(true);
     }
-
   };
   const handleSave = (dat) => {
     let temp = data.filter((e) => e.idx != editIdx);
@@ -49,6 +48,7 @@ const TableNewRole = ({ headData, data, setData, roleId }) => {
             {headData.map((dat) => {
               return (
                 <th
+                  key={dat}
                   className={styles.tableHeadCell}
                   onClick={() => {
                     handleSortColumn(dat);
@@ -72,7 +72,7 @@ const TableNewRole = ({ headData, data, setData, roleId }) => {
             return (
               <tr className={styles.tableRow} key={dat.idx}>
                 <td className={styles.tableCell}>
-                  {isEdit && dat.idx == editIdx ? (
+                  {isEdit && dat.idx == editIdx && false ? (
                     <input
                       placeholder={dat.quality}
                       className={styles.inputText}

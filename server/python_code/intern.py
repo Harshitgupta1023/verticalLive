@@ -101,8 +101,8 @@ recommended = sorted(scores.items(),key=lambda x:-x[1])
 
 # filtering 
 # print("User Interests :- ",*user_input)
-print("$$".join([i[0] for i in recommended][:10]))
-
+# print("$$".join([i[0] for i in recommended][:10]))
+print("$$".join([",".join(list(map(str,i))) for i in recommended]))
 
 # # Code for building matrix question
 # f1 = open("qualities.txt","r")

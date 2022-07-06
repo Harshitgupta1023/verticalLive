@@ -20,7 +20,7 @@ exports.answer = async (req, res, next) => {
       ":" +
       currentdate.getSeconds();
 
-    const { uid, category,result } = req.body;
+    const { uid, category, result } = req.body;
     let query = [];
     let value = [category];
     Object.keys(result).map((dat) => {
@@ -48,6 +48,7 @@ exports.answer = async (req, res, next) => {
           res.status(400).json({ error: err });
           throw new Error(err);
         }
+
         res.status(200).send(results);
       }
     );

@@ -6,6 +6,7 @@ import Loading from "../Loading/Loading";
 import { fetchRoleData, fetchQualityData } from "./NewRoleUtils";
 import Button from "../Button/Button";
 import TableNewRole from "../Table/TableNewRole";
+import axios from "axios";
 
 const NewRole = ({ uid, setMessage, setAlertOpen, setSeverity }) => {
   const [category, setCategory] = useState(categoryList[0]);
@@ -38,8 +39,34 @@ const NewRole = ({ uid, setMessage, setAlertOpen, setSeverity }) => {
   }, [role]);
 
   const handleUpdateTable = async () => {
-    console.log(roleQualityData);
+    setIsLoading(true);
+    const nameArr = new Array(roleQualityData.length);
+    const weightArr = new Array(roleQualityData.length);
+    roleQualityData.map((dat) => {
+      nameArr[dat.idx] = dat.quality;
+      weightArr[dat.idx] = dat.weight.toString();
+    });
+    try {
+      const res = await axios.put(
+        process.env.REACT_APP_SERVER_IP + "updateQuality",
+        {
+          qrid: roleId,
+          name: nameArr.join("$$"),
+          weight: weightArr.join("$$"),
+        }
+      );
+
+      setMessage("Update Successfull!!");
+      setAlertOpen(true);
+      setSeverity("success");
+    } catch (err) {
+      setMessage(err.response.data.error);
+      setAlertOpen(true);
+      setSeverity("error");
+    }
+    setIsLoading(false);
   };
+
   if (isLoading) {
     return <Loading />;
   }

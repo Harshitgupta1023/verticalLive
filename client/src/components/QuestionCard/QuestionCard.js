@@ -9,6 +9,7 @@ import axios from "axios";
 import DisplayResult from "../DisplayResult/DisplayResult";
 import { updateServerData } from "./QuestionCardUtil";
 import Loading from "../Loading/Loading";
+import TableRecommendation from "../Table/TableRecommendation";
 
 StylesManager.applyTheme("modern");
 var myCss = {
@@ -30,6 +31,7 @@ const QuestionCard = ({
 }) => {
   const [displayResult, setDisplayResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
   const sendResult = async (sender) => {
     setIsLoading(true);
     let results = sender.data;
@@ -53,10 +55,21 @@ const QuestionCard = ({
         result: results,
         category: category,
       });
+
+      let temp = [];
+      res.data[0].split("$$").map((dat, idx) => {
+        let x = dat.split(",");
+        temp.push({
+          idx: idx,
+          role: x[0],
+          score: parseFloat(x[1]),
+        });
+      });
+
       setMessage("Answer Submitted Successfully!! ");
       setAlertOpen(true);
       setSeverity("success");
-      setDisplayResult(res.data[0].split("$$"));
+      setDisplayResult(temp);
     } catch (err) {
       setMessage(err.response.data.error);
       setAlertOpen(true);
@@ -68,6 +81,7 @@ const QuestionCard = ({
     elements: [],
   };
 
+  const headData = ["role", "score"];
   if (serverData.length !== 0) {
     serverData.map((dat) => {
       data["elements"].push(updateServerData((dat = { dat })));
@@ -89,7 +103,7 @@ const QuestionCard = ({
         <Survey model={survey} css={myCss} />
       ) : null}
       {displayResult.length !== 0 ? (
-        <DisplayResult result={displayResult} />
+        <TableRecommendation data={displayResult} headData={headData} />
       ) : null}
       {displayResult.length !== 0 ? (
         <div className={styles.buttonContainer}>
@@ -98,6 +112,12 @@ const QuestionCard = ({
               setDisplayResult([]);
             }}
             text="Again"
+          />
+          <Button
+            onClick={() => {
+              console.log("Display more data")
+            }}
+            text="Next"
           />
         </div>
       ) : null}

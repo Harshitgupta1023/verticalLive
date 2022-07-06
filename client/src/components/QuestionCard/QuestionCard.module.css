@@ -7,9 +7,8 @@
 }
 
 .buttonContainer {
-  position: absolute;
-  bottom: 15px;
-  right: 0;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .survey_title {
