@@ -6,7 +6,6 @@ import { Survey } from "survey-react-ui";
 import Button from "../Button/Button";
 
 import axios from "axios";
-import DisplayResult from "../DisplayResult/DisplayResult";
 import { updateServerData } from "./QuestionCardUtil";
 import Loading from "../Loading/Loading";
 import TableRecommendation from "../Table/TableRecommendation";
@@ -113,12 +112,12 @@ const QuestionCard = ({
             }}
             text="Again"
           />
-          <Button
+          {/* <Button
             onClick={() => {
               console.log("Display more data")
             }}
             text="Next"
-          />
+          /> */}
         </div>
       ) : null}
     </div>

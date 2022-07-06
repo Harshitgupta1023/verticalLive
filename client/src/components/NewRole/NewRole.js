@@ -101,14 +101,18 @@ const NewRole = ({ uid, setMessage, setAlertOpen, setSeverity }) => {
               ? `Feature to be released soon`
               : `Description of ${role}`}
           </h1>
-          <Button onClick={handleUpdateTable} text="Update" />
+          {roleQualityData.length === 0 ? null : (
+            <Button onClick={handleUpdateTable} text="Update" />
+          )}
         </div>
-        <TableNewRole
-          headData={headData}
-          data={roleQualityData}
-          setData={setRoleQualityData}
-          roleId={roleId}
-        />
+        {roleQualityData.length === 0 ? null : (
+          <TableNewRole
+            headData={headData}
+            data={roleQualityData}
+            setData={setRoleQualityData}
+            roleId={roleId}
+          />
+        )}
       </div>
     </div>
   );

@@ -4,23 +4,16 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import cx from "classnames";
 
-const DropDownMenu = ({
-  state,
-  setState,
-  listItem,
-  classStyle,
-  disabled,
-}) => {
+const DropDownMenu = ({ state, setState, listItem, classStyle, disabled }) => {
   return (
     <Select
+      size="medium"
       value={disabled ? "No Role" : state}
       onChange={(dat) => {
         setState(dat.target.value);
       }}
-      className={cx(
-        styles.selectItem,
-        classStyle === undefined ? "" : classStyle
-      )}
+      className={classStyle === undefined ? "" : classStyle}
+      style={{ fontSize: 15 }}
       disabled={disabled}
     >
       {listItem.map((dat) => {

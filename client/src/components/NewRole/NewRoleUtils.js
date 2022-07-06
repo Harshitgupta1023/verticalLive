@@ -52,13 +52,14 @@ export const fetchQualityData = async (
     let tempData = [];
     for (let i = 0; i < tempName.length; i++) {
       tempData.push({
-        idx:i,
+        idx: i,
         quality: tempName[i],
         weight: parseFloat(tempWeight[i]),
       });
     }
     setRoleQualityData(tempData);
   } catch (err) {
+    setRoleQualityData([]);
     console.log("Fetch Quality Data----->", err);
   }
   setIsLoading(false);
