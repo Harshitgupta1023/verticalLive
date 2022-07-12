@@ -1,0 +1,25 @@
+.container {
+}
+
+.menuContainer {
+  display: flex;
+  font-size: 18px;
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 10px;
+  align-items: center;
+  padding: 1rem;
+
+}
+
+.dropDownStyle2 {
+  width: 30%;
+  font-size: 15px;
+}
+
+
+.tableContainer {
+  padding: 1rem;
+}
+
+@media screen and (max-width: 1020px) {
+}

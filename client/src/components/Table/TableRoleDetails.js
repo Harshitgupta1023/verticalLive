@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import styles from "./TableModified.module.css";
 
-const TableRecommendation = ({ headData, data }) => {
-  const [sortColumn, setSortColumn] = useState(headData[1]);
-  const [ascending, setAscending] = useState(false);
+const TableRoleDetails = ({ headData, data }) => {
+  const [sortColumn, setSortColumn] = useState(headData[0]);
+  const [ascending, setAscending] = useState(true);
 
   function compare(a, b) {
     // console.log(a[sortColumn],b[sortColumn])
@@ -51,8 +51,8 @@ const TableRecommendation = ({ headData, data }) => {
           {data.sort(compare).map((dat) => {
             return (
               <tr className={styles.tableRow} key={dat.idx}>
-                <td className={styles.tableCell}>{dat.role}</td>
-                <td className={styles.tableCell}>{dat.score}</td>
+                <td className={styles.tableCell}>{dat.quality}</td>
+                <td className={styles.tableCell}>{dat.weight}</td>
               </tr>
             );
           })}
@@ -62,4 +62,4 @@ const TableRecommendation = ({ headData, data }) => {
   );
 };
 
-export default TableRecommendation;
+export default TableRoleDetails;

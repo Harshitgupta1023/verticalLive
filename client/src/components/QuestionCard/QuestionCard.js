@@ -9,6 +9,7 @@ import axios from "axios";
 import { updateServerData } from "./QuestionCardUtil";
 import Loading from "../Loading/Loading";
 import TableRecommendation from "../Table/TableRecommendation";
+import RoleDetails from "../RoleDetails/RoleDetails";
 
 StylesManager.applyTheme("modern");
 var myCss = {
@@ -30,6 +31,7 @@ const QuestionCard = ({
 }) => {
   const [displayResult, setDisplayResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [showNext, setShowNext] = useState(false);
 
   const sendResult = async (sender) => {
     setIsLoading(true);
@@ -76,6 +78,7 @@ const QuestionCard = ({
     }
     setIsLoading(false);
   };
+
   const data = {
     elements: [],
   };
@@ -102,7 +105,11 @@ const QuestionCard = ({
         <Survey model={survey} css={myCss} />
       ) : null}
       {displayResult.length !== 0 ? (
-        <TableRecommendation data={displayResult} headData={headData} />
+        showNext ? (
+          <RoleDetails category={category} />
+        ) : (
+          <TableRecommendation data={displayResult} headData={headData} />
+        )
       ) : null}
       {displayResult.length !== 0 ? (
         <div className={styles.buttonContainer}>
@@ -112,12 +119,12 @@ const QuestionCard = ({
             }}
             text="Again"
           />
-          {/* <Button
+          <Button
             onClick={() => {
-              console.log("Display more data")
+              setShowNext(!showNext);
             }}
-            text="Next"
-          /> */}
+            text={showNext ? "Prev" : "Next"}
+          />
         </div>
       ) : null}
     </div>
